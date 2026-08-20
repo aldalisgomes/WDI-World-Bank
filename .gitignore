@@ -1,0 +1,28 @@
+# Python environment and cache files
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Virtual Environments
+venv/
+env/
+.env
+
+# IDEs and Editors settings (e.g., VS Code)
+.vscode/
+.idea/
+
+# Data files 
+# (We ignore Excel files to prevent pushing large, raw datasets to GitHub)
+data/*.xlsx
+data/*.xls
+data/*.csv
+
+# Output files 
+# (Optional: uncomment the line below if you don't want to push generated graphs to GitHub)
+# outputs/*.png
+
+# OS generated files
+.DS_Store
+Thumbs.db

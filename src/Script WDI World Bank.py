@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 
 #%% Loading the datasets
 # We use an argument to handle NAs in the WDI data
-wdi_data = pd.read_excel('WDI World Bank.xlsx', na_values="..")
-group_data = pd.read_excel('WDI Income Group.xlsx')
-country_data = pd.read_excel('WDI Country.xlsx')
+wdi_data = pd.read_excel('data/WDI World Bank.xlsx', na_values="..")
+group_data = pd.read_excel('data/WDI Income Group.xlsx')
+country_data = pd.read_excel('data/WDI Country.xlsx')
 
 #%% Basic data information
 wdi_data.info()
