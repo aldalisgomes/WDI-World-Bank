@@ -108,56 +108,52 @@ plt.ylabel('Diabetes prevalence (% of population ages 20 to 79)', fontsize=15)
 plt.xticks(fontsize=14)
 plt.yticks(fontsize=14)
 
-# TESTE 1
-# Criar a pasta 'resultados' na raiz do projeto (se não existir)
-pasta_resultados = 'resultados'
-os.makedirs(pasta_resultados, exist_ok=True)
+#-------------------------
+# Create the 'results' folder in the project root (if it doesn't exist)
+results_folder = 'results'
+os.makedirs(results_folder, exist_ok=True)
 
-# Salvar o gráfico gerado dentro da pasta 'resultados'
-caminho_imagem = os.path.join(pasta_resultados, 'prevalencia_diabetes.png')
-plt.savefig(caminho_imagem, bbox_inches='tight')
-plt.close() # Fecha a figura da memória
+# Save the generated chart inside the 'results' folder
+image_path = os.path.join(results_folder, 'diabetes_prevalence.png')
+plt.savefig(image_path, bbox_inches='tight')
+plt.close() # Close the figure from memory
 
-# Coletar os caminhos absolutos
-caminho_pasta_abs = os.path.abspath(pasta_resultados)
-caminho_imagem_abs = os.path.abspath(caminho_imagem)
+# Collect absolute paths
+folder_path_abs = os.path.abspath(results_folder)
+image_path_abs = os.path.abspath(image_path)
 
-# Detectar o ambiente usando o módulo platform
+# Detect the environment using the platform module
 release = platform.release().lower()
-sistema = platform.system().lower()
+system = platform.system().lower()
 
 if 'microsoft' in release:
-    # Detectado: WSL
+    # Detected: WSL
     try:
-        # Converter caminhos do Linux para caminhos nativos do Windows com wslpath -w
-        win_folder_path = subprocess.check_output(['wslpath', '-w', caminho_pasta_abs]).decode('utf-8').strip()
-        win_file_path = subprocess.check_output(['wslpath', '-w', caminho_imagem_abs]).decode('utf-8').strip()
+        # Convert Linux paths to native Windows paths using wslpath -w
+        win_folder_path = subprocess.check_output(['wslpath', '-w', folder_path_abs]).decode('utf-8').strip()
+        win_file_path = subprocess.check_output(['wslpath', '-w', image_path_abs]).decode('utf-8').strip()
         
-        # Chamar o explorer.exe para abrir a pasta convertida
+        # Call explorer.exe to open the converted folder
         subprocess.run(['explorer.exe', win_folder_path])
         
-        # Chamar o powershell.exe para abrir automaticamente a imagem convertida
-        comando_ps = f"Invoke-Item -LiteralPath '{win_file_path}'"
-        subprocess.run(['powershell.exe', '-Command', comando_ps])
+        # Call powershell.exe to automatically open the converted image
+        ps_command = f"Invoke-Item -LiteralPath '{win_file_path}'"
+        subprocess.run(['powershell.exe', '-Command', ps_command])
     except Exception as e:
-        print(f"Erro ao tentar abrir os arquivos no Windows via WSL: {e}")
+        print(f"Error trying to open files in Windows via WSL: {e}")
 
-elif sistema == 'windows':
-    # Suporte nativo para Windows (os.startfile)
-    os.startfile(caminho_pasta_abs)
-    os.startfile(caminho_imagem_abs)
+elif system == 'windows':
+    # Native support for Windows (os.startfile)
+    os.startfile(folder_path_abs)
+    os.startfile(image_path_abs)
 
-elif sistema == 'darwin':
-    # Suporte nativo para macOS (subprocess com open)
-    subprocess.run(['open', caminho_pasta_abs])
-    subprocess.run(['open', caminho_imagem_abs])
+elif system == 'darwin':
+    # Native support for macOS (subprocess with open)
+    subprocess.run(['open', folder_path_abs])
+    subprocess.run(['open', image_path_abs])
 
 else:
-    # Suporte genérico para Linux padrão
-    subprocess.run(['xdg-open', caminho_pasta_abs])
-    subprocess.run(['xdg-open', caminho_imagem_abs])
-
-# %% END
-
-
+    # Generic support for standard Linux
+    subprocess.run(['xdg-open', folder_path_abs])
+    subprocess.run(['xdg-open', image_path_abs])
 # %% END
